@@ -27,7 +27,7 @@ var app = module.exports = express.createServer();
 // Markdown
 var md = require("node-markdown").Markdown;
 
-// ルーティング
+// handler 
 var create_handler = require('./routes/create')
 var register_handler = require('./routes/register')
 
