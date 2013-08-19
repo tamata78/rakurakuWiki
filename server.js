@@ -43,7 +43,7 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));//画像,ライブラリ、CSSファイル置き場
 });
 
-//開発環境設定
+// 開発環境設定
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
