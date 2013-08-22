@@ -33,7 +33,7 @@ var register_handler = require('./routes/register')
 
 // Configuration
 
-//共通設定
+// 共通設定
 app.configure(function(){
   app.set('views', __dirname + '/views');//画面ファイル置き場
   app.set('view engine', 'jade');
