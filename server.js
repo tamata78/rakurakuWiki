@@ -48,7 +48,7 @@ app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
 
-//プロダクト環境設定
+// プロダクト環境設定
 app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
