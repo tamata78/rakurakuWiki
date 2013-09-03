@@ -17,12 +17,12 @@ var WikiContent = new Schema({
 });
 
 mongoose.model('WikiContent', WikiContent);
-WikiContent = mongoose.model('WikiContent');
+WikiContent = module.exports = mongoose.model('WikiContent');
 
 var express = require('express');
 
 // サーバー作成
-var app = module.exports = express.createServer();
+var app = express.createServer();
 
 // Markdown
 var md = require("node-markdown").Markdown;
@@ -53,6 +53,12 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+// ヘルパメソッド
+app.locals({
+  test: 'test',
+  defaultcode: '999'
+})
+
 // Routes
 //TOP画面を表示する
 app.get('/', function(req, res){
@@ -62,21 +68,20 @@ app.get('/', function(req, res){
 });
 
 //指定URLの記事を取得する
-//app.get('/:title', function(req, res){
-//  WikiContent.findOne({title: req.params.title}, function (err, content) {
-//      if (content == null) {
-//        res.render('form', {
-//          title: req.params.title
-//        });
-//      } else {
-//        res.render('wiki', {
-//        title: content.title,
-//        body: md(content.body),
-//        date: content.date
-//        });
-//      }
-//  });
-//});
+app.get('/wiki/:articleId', function(req, res){
+  WikiContent.findOne({id: req.params.articleId}, function (err, content) {
+      var title = '選択されたページは存在しません。'; 
+      if (content != null) {
+        title = content.title;       
+      }
+
+      res.render('wiki', {
+      title: title,
+      body: md(content.body),
+      date: content.date
+      });
+  });
+});
 
 //タイトルなしで内容のみを表示
 app.get('/md/:title', function(req, res){
@@ -85,34 +90,34 @@ app.get('/md/:title', function(req, res){
   });
 });
 
-//記事の登録
-app.post('/register', register_handler.index);
-
 //記事内容の登録・更新
-app.post('/:title', function(req, res){
-  WikiContent.findOne({title: req.params.title}, function (err, content) {
-	// コンテンツが取得できなかった場合
-    if (content == null) {
-        // 新規記事を作成する
-      new WikiContent({title:  req.params.title, body: req.param('body'), date: new Date()}).save( 
-        function (){
-          res.redirect('/'+req.params.title);
-      });       
-    } else {
-        // コンテンツが取得できた場合
-        // 記事の更新
-      content.body = req.param('body');
-      content.date = new Date();
-      content.save( 
-        function (){
-          res.send(md(req.param('body')));
-      });       
-    }
-  });
-});
+//app.post('/:title', function(req, res){
+//  WikiContent.findOne({title: req.params.title}, function (err, content) {
+//	// コンテンツが取得できなかった場合
+//    if (content == null) {
+//        // 新規記事を作成する
+//      new WikiContent({title:  req.params.title, body: req.param('body'), date: new Date()}).save( 
+//        function (){
+//          res.redirect('/'+req.params.title);
+//      });       
+//    } else {
+//        // コンテンツが取得できた場合
+//        // 記事の更新
+//      content.body = req.param('body');
+//      content.date = new Date();
+//      content.save( 
+//        function (){
+//          res.send(md(req.param('body')));
+//      });       
+//    }
+//  });
+//});
 
-//記事の新規作成
+//記事の新規作成画面を開く
 app.get('/create', create_handler.index);
+
+//記事の新規登録
+app.post('/register', register_handler.index);
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
