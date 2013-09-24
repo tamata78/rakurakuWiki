@@ -1,17 +1,18 @@
-h1= title
+include header
+h1= content.title
 
-div.editable_textarea!= body
+div.editable_textarea!= content.body
 p #{date}
 script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js')
 script(type='text/javascript', src='/javascripts/jquery.jeditable.mini.js')
-script.jeditable
-  $(".editable_textarea").editable("#{title}", { 
-      type   : 'textarea',
-      submitdata: { _method: "post" },
-      name     : 'body',
-      loadurl  : '/md/' + "#{title}",
-      rows     : 10,
-      submit : 'OK',
-      cancel : 'cancel',
-      cssclass : "editable"
-  });
+//script.jeditable
+//  $(".editable_textarea").editable("#{content.title}", { 
+//      type   : 'textarea',
+//      submitdata: { _method: "post" },
+//      name     : 'body',
+//      loadurl  : '/md/' + "#{content.title}",
+//      rows     : 10,
+//      submit : 'OK',
+//      cancel : 'cancel',
+//      cssclass : "editable"
+//  });

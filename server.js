@@ -30,6 +30,7 @@ var md = require("node-markdown").Markdown;
 // handler 
 var create_handler = require('./routes/create')
 var register_handler = require('./routes/register')
+var edit_handler = require('./routes/edit')
 
 // Configuration
 
@@ -53,21 +54,22 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-// ヘルパメソッド
-app.locals({
-  test: 'test',
-  defaultcode: '999'
-})
-
 // Routes
-//TOP画面を表示する
+// TOP画面を表示する
 app.get('/', function(req, res){
   res.render('index', {
-    title: 'rakurakuWiki'
+      title: 'rakurakuWiki'
+    , displayName: 'top'
   });
 });
 
-//指定URLの記事を取得する
+// 記事の新規作成画面を開く
+app.get('/create', create_handler.index);
+
+// 記事の新規登録
+app.post('/register', register_handler.index);
+
+// 指定IDの記事を表示する
 app.get('/wiki/:articleId', function(req, res){
   WikiContent.findOne({id: req.params.articleId}, function (err, content) {
       var title = '選択されたページは存在しません。'; 
@@ -76,48 +78,23 @@ app.get('/wiki/:articleId', function(req, res){
       }
 
       res.render('wiki', {
-      title: title,
-      body: md(content.body),
-      date: content.date
+          content: content
+        , displayName: 'wiki'
       });
   });
 });
 
-//タイトルなしで内容のみを表示
 app.get('/md/:title', function(req, res){
   WikiContent.findOne({title: req.params.title}, function (err, content) {
     res.send(content.body);
   });
 });
 
-//記事内容の登録・更新
-//app.post('/:title', function(req, res){
-//  WikiContent.findOne({title: req.params.title}, function (err, content) {
-//	// コンテンツが取得できなかった場合
-//    if (content == null) {
-//        // 新規記事を作成する
-//      new WikiContent({title:  req.params.title, body: req.param('body'), date: new Date()}).save( 
-//        function (){
-//          res.redirect('/'+req.params.title);
-//      });       
-//    } else {
-//        // コンテンツが取得できた場合
-//        // 記事の更新
-//      content.body = req.param('body');
-//      content.date = new Date();
-//      content.save( 
-//        function (){
-//          res.send(md(req.param('body')));
-//      });       
-//    }
-//  });
-//});
+// 記事の編集
+app.get('/edit/:articleId', edit_handler.index);
 
-//記事の新規作成画面を開く
-app.get('/create', create_handler.index);
-
-//記事の新規登録
-app.post('/register', register_handler.index);
+// 記事の更新
+app.post('/edit/update/:articleId', edit_handler.update);
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
