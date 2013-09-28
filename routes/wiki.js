@@ -4,12 +4,12 @@
  */
 
 
-var WikiContent = module.parent.exports
+var WikiContent = module.parent.parent.exports
 exports.index = function(req, res){
   WikiContent.findOne({id: req.params.articleId}, function (err, content) {
-      var title = '選択されたページは存在しません。'; 
+      var title = '選択されたページは存在しません。';
       if (content != null) {
-        title = content.title;       
+        title = content.title;
       }
 
       res.render('wiki', {
