@@ -31,14 +31,6 @@ var md = require("node-markdown").Markdown;
 require('./configure')(express, app);
 
 // Routes
-// TOP画面を表示する
-app.get('/', function(req, res){
-  res.render('index', {
-      title: 'rakurakuWiki'
-    , displayName: 'top'
-  });
-});
-
 require('./router')(app);
 
 app.listen(3000);

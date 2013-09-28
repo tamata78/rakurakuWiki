@@ -4,6 +4,14 @@ module.exports = function(app){
   var wiki_handler = require('./routes/wiki')
   var edit_handler = require('./routes/edit')
 
+  // TOP画面を表示する
+  app.get('/', function(req, res){
+    res.render('index', {
+        title: 'rakurakuWiki'
+      , displayName: 'top'
+    });
+  });
+
   // 記事の新規作成画面を開く
   app.get('/create', create_handler.index);
 

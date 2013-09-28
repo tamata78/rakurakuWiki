@@ -4,7 +4,7 @@
  */
 
 //記事内容の登録
-var WikiContent = module.parent.exports
+var WikiContent = module.parent.parent.exports
 exports.index = function(req, res){
   WikiContent.count({}, function (err, count) {
      var content = {
@@ -14,9 +14,9 @@ exports.index = function(req, res){
        , date: new Date()
        , displayName: 'register'
      };
-     new WikiContent(content).save( 
+     new WikiContent(content).save(
         function (){
           res.redirect('/wiki/'+(count+1));
-      });       
+      });
   });
 };
