@@ -3,6 +3,11 @@ module.exports = function(app){
   var create_handler = require('./routes/create')
   var wiki_handler = require('./routes/wiki')
   var edit_handler = require('./routes/edit')
+  var chat_handler = require('./routes/chat');
+
+  // socket.ioのモジュール読み込み
+  var io = require('socket.io');
+  var io = io.listen(app);
 
   // TOP画面を表示する
   app.get('/', function(req, res){
@@ -26,4 +31,10 @@ module.exports = function(app){
 
   // 記事の更新
   app.post('/edit/update/:articleId', edit_handler.update);
+
+  // チャット画面
+  app.get('/chat', chat_handler.index);
+  io.sockets.on('connection', function(socket){
+    chat_handler.message(socket);
+  });
 }
