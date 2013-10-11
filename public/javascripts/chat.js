@@ -8,7 +8,9 @@ $(function(){
 
     // submitボタンを押したらmessageを送る
     $('#submit').click(function(){
+      var name = $('#name').val();
       var message = $('#message').val();
+      var message = '('+name+') '+ message;
       $('#message').val('');
       if (message && socket){
         // 自分のメッセージを追加してからemit
