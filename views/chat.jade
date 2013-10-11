@@ -1,0 +1,12 @@
+form
+  名前：
+  input(id='name', type='text', size='10', value='nanashi')
+  br
+  メッセージ：
+  br
+  textarea(id='message', name='message')
+  input(id='submit', type='button', value='submit')
+ul(id='list')
+  each val in messages
+    if val
+      li= val
