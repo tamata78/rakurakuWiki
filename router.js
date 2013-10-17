@@ -1,5 +1,10 @@
+/**
+ * Module dependencies.
+ */
+
 module.exports = function(app){
   // handler
+  var index_handler = require('./routes/index')
   var create_handler = require('./routes/create')
   var wiki_handler = require('./routes/wiki')
   var edit_handler = require('./routes/edit')
@@ -10,13 +15,14 @@ module.exports = function(app){
   var io = io.listen(app);
 
   // TOP画面を表示する
-  app.get('/', function(req, res){
-    res.render('index', {
-        title: 'rakurakuWiki'
-      , displayName: 'top'
-    });
-  });
+  app.get('/', index_handler.index);
 
+  // ログイン 
+  app.post('/login', index_handler.login);
+
+  // 新規ユーザー登録
+  app.get('/createUser', index_handler.createUser);
+  
   // 記事の新規作成画面を開く
   app.get('/create', create_handler.index);
 
@@ -37,4 +43,6 @@ module.exports = function(app){
   io.sockets.on('connection', function(socket){
     chat_handler.message(socket);
   });
+
 }
+

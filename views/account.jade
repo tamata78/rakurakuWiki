@@ -1,0 +1,25 @@
+.panel.panel-primary
+  .panel-heading
+    .panel-title      
+      if(login != 'true') 
+        b Sign in
+      else
+        b Account
+  div.text-center
+   if(login != 'true') 
+     form(mekthod='post', action='/login')
+       br
+       | Email：
+       input(type='text', name='email', disabled='disabled', placeholder='hoge@aaa.com')
+       br
+       | Password：
+       input(type='password', name='password', disabled='disabled')
+       br
+       br
+       button.btn.btn-primary.disabled(type='submit') ログイン
+       br
+       //a(href="/createUser", target="_blank") 新規ユーザー登録 
+   else  
+     form(method='get', action='/loginout')
+       p tezuka
+       button.btn(type='submit') ログアウト

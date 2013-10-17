@@ -20,9 +20,9 @@ $(function(){
     });
     
     function appendMessage(message){
-      var li = $('<li></li>').text(message);
+      var tr = $('<tr><td></td></tr>').text(message);
       var list = $('#list');
-      list.append(li);
+      list.append(tr);
     }
   });
 });

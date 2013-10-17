@@ -1,11 +1,17 @@
 include header
 input(type="hidden", name="displayStatus", value="noEdit")
- 
+
 h1= title
 br
-p Welcome to #{title}
-img(src="images/rirakkuma.jpeg")
-br
-br
-ゆっくりまったり更新して行きましょ
-
+.row-fluid
+  .col-sm-3
+    include account
+  .col-sm-9
+    p Welcome to #{title}
+    img(src="images/rirakkuma.jpeg")
+    br
+    ゆっくりまったり更新して行きましょ
+.row-fluid
+  .col-sm-3
+    include mainContent
+  .col-sm-9

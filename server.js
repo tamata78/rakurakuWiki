@@ -1,15 +1,13 @@
-
 /**
  * Module dependencies.
  */
 
 // DB設定
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fjkw');
-var Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost/rakurakuwiki');
 
 // DBスキーマ設定
-var WikiContent = new Schema({
+var WikiContent = new mongoose.Schema({
     id        : Number
   , title     : String
   , body      : String
@@ -17,20 +15,21 @@ var WikiContent = new Schema({
 });
 
 mongoose.model('WikiContent', WikiContent);
-WikiContent = module.exports = mongoose.model('WikiContent');
+module.exports = mongoose.model('WikiContent');
+
+// ユーザー情報取得 
+var model = require('./models/user.js')(mongoose);
 
 var express = require('express');
 
 // サーバー作成
 var app = express.createServer();
 
-// Markdown
-var md = require("node-markdown").Markdown;
-
 // 環境設定
 require('./configure')(express, app);
 
 // Routes
+//require('./router')(app, model.User);
 require('./router')(app);
 
 app.listen(3000);

@@ -1,12 +1,20 @@
-form
-  名前：
-  input(id='name', type='text', size='10', value='nanashi')
-  br
-  メッセージ：
-  br
-  textarea(id='message', name='message')
-  input(id='submit', type='button', value='submit')
-ul(id='list')
-  each val in messages
-    if val
-      li= val
+h1 chat room 
+.row-fluid
+  .col-sm-7
+    .well
+     form
+       名前：
+       input(id='name', type='text', size='10', value='nanashi')
+       br
+       .input-prepend
+         メッセージ：
+         input(id='message', name='message', size='60') 
+         button.btn.btn-success(id='submit', type='button', style="margin-left:10px") 送信
+table.table(id='list')
+  thead
+    tr
+      td
+  tbody
+    each val in messages
+      if val
+        val
