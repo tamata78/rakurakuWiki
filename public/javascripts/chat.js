@@ -10,7 +10,7 @@ $(function(){
     $('#submit').click(function(){
       var name = $('#name').val();
       var message = $('#message').val();
-      var message = '('+name+') '+ message;
+      var message = '('+name+') ' + message;
       $('#message').val('');
       if (message && socket){
         // 自分のメッセージを追加してからemit
@@ -18,11 +18,11 @@ $(function(){
         socket.emit('message', message);
       }
     });
-    
+
     function appendMessage(message){
-      var tr = $('<tr><td></td></tr>').text(message);
+      var li = $('<li></li>').text(message);
       var list = $('#list');
-      list.append(tr);
+      list.append(li);
     }
   });
 });
