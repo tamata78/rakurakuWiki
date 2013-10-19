@@ -1,20 +1,22 @@
-h1 chat room 
-.row-fluid
+h1 chat room
+.row
   .col-sm-7
     .well
-     form
-       名前：
-       input(id='name', type='text', size='10', value='nanashi')
-       br
-       .input-prepend
-         メッセージ：
-         input(id='message', name='message', size='60') 
-         button.btn.btn-success(id='submit', type='button', style="margin-left:10px") 送信
-table.table(id='list')
-  thead
-    tr
-      td
-  tbody
-    each val in messages
-      if val
-        val
+      form.form-horizontal(role='form')
+        .form-group
+          label.col-lg-2.control-label
+            名前
+          .col-lg-10
+            input#name.form-control(type='text', size='10', value='nanashi')
+        .form-group
+          label.col-lg-2.control-label
+            メッセージ
+          .col-lg-10
+            textarea#message.form-control(name='message' rows='3',)
+        .form-group
+          .col-lg-offset-2.col-lg-10
+            button#submit.btn.btn-success(type='button') メッセージを送信
+ul#list(style='list-style: none')
+  each val in messages
+    if val
+      val
