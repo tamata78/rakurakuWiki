@@ -19,11 +19,11 @@ exports.login = function(req, res){
   var password = req.param("password");
   var query = { "userId": userId, "password": password };
 
-  User.find(query, function(err, data) {
+  User.find(query, function(err, userInfo) {
     if(err) {
       console.log(err);
     }
-    if (data == "") {
+    if (userInfo == "") {
       res.render('index', {
           title: 'rakurakuWiki'
         , message: 'ID,またはパスワードが異なります'

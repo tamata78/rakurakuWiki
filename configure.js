@@ -14,11 +14,6 @@ module.exports = function(express, app) {
     app.use(express.session({ //セッション設定
       secret: 'sess_id'
     }));
-    app.use(function(req, res, next) { // viewでアクセス可能な変数設定 
-     // if (req.is('/')) app.locals.title = 'rakurakuWiki';
-      //app.locals.userId = req.session.userId;
-      next();
-    });
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));//画像,ライブラリ、CSSファイル置き場
   });

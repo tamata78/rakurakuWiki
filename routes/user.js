@@ -13,21 +13,21 @@ var modules = module.parent.parent.exports;
 var user = modules.User;
 
 exports.register = function(req, res){
-  userId = req.param('userId');
+  id = req.param('userId');
   password = req.param('password');
   
-  if (userId == '' || password == '') {
+  if (id == '' || password == '') {
     renderCreateUser(res, 'ユーザーID、またはパスワードが未入力です');
     return;
   }
-  user.findOne({userId: req.param('userId')}, function (err, userInfo) {
+  user.findOne({userId: id}, function (err, userInfo) {
     if (userInfo != null) {
       renderCreateUser(res, 'すでに存在するユーザーIDです'); 
       return;
     }
     // ユーザー登録
     userInfo = {
-        userId:  userId
+        userId: id
       , password: password
     };
     registerUser(res, userInfo);

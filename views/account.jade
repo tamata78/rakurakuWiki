@@ -9,17 +9,21 @@
    if(userId == null || userId == '') 
      label=message
      form(method='post', action='/login')
-       br
-       | ユーザーID:
-       input(type='text', name='userId')
-       br
-       | パスワード：
-       input(type='password', name='password')
-       br
-       br
-       button.btn.btn-primary(type='submit') ログイン
-       br
-       a(href="/createUser", target="_blank") 新規ユーザー登録 
+       table
+         tr
+           td
+             | ユーザーID:
+             input(type='text', name='userId')
+         tr
+           td
+             | パスワード：
+             input(type='password', name='password')
+         tr
+           td.text-center
+             br  
+             button.btn.btn-primary(type='submit') ログイン
+             br
+             a(href="/createUser", target="_blank") 新規ユーザー登録 
    else  
      form(method='get', action='/logout')
        p #{userId}
