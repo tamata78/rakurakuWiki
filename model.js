@@ -1,27 +1,28 @@
 /**
- * Module dependencies.
+ *  Modelの定義 
  */
 
-module.exports = function(model){
-  var domain = (process.env.NODE_ENV === 'production')?'exsample.com':'localhost';
+// DB設定
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/rakurakuwiki');
 
-  var mongoose = require('mongoose');
-  var url = 'mongodb://' + domain + '/' + model;
-  var dbConnect = exports.dbConnect = mongoose.createConnection(url, function(err, res){
-    if(err) {
-      console.log('Error connected: ' + url + ' - ' + err);
-    } else{
-      console.log('Success connected: ' + url);
-    }
-  });
-
-  
-// Modelの定義
+// Wiki記事情報  
+var WikiContent = new mongoose.Schema({
+    id        : Number
+  , title     : String
+  , body      : String
+  , date      : Date
+});
+mongoose.model('WikiContent', WikiContent);
+    
+// ユーザー情報
 var UserInfo = new mongoose.Schema({
-    email     : String
+    userId    : String
   , password  : String
-},{collection: 'info'});
+});
+mongoose.model('UserInfo', UserInfo);
 
- dbConnect.model('User', UserInfo);
+module.exports = {
+    WikiContent:  mongoose.model('WikiContent') 
+  , User: mongoose.model('UserInfo')
 }
-

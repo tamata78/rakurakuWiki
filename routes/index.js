@@ -7,16 +7,17 @@ exports.index = function(req, res){
   res.render('index', {
       title: 'rakurakuWiki'
     , displayName: 'top'
-    , login: 'false'
+    , userId: req.session.userId
   });
 }
 
 // ログイン
-var User = module.parent.exports
+var modules = module.parent.parent.exports;
+var User = modules.User;
 exports.login = function(req, res){
-  var email    = req.param("email");
+  var userId    = req.param("userId");
   var password = req.param("password");
-  var query = { "email": email, "password": password };
+  var query = { "userId": userId, "password": password };
 
   User.find(query, function(err, data) {
     if(err) {
@@ -24,19 +25,20 @@ exports.login = function(req, res){
     }
     if (data == "") {
       res.render('index', {
-          title: 'ユーザーを新規登録してください'});
+          title: 'rakurakuWiki'
+        , message: 'ID,またはパスワードが異なります'
+        , displayName: 'top'
+      });
     } else {
-      req.session.user = email;
+      req.session.userId = userId;
       res.redirect('/');
     }
   });
-};
+}
 
 // ログアウト
-
-// 新規ユーザー登録
-exports.createUser = function(req, res){
-  res.render('createUser', {
-      title: '新規ユーザー登録'
-  });
+exports.logout = function(req, res){
+  req.session.userId = null;
+  res.redirect('/');
 }
+

@@ -1,6 +1,5 @@
 !!! 5
-
-head    
-a(href='/create', target='_blank') 作成  
-if(displayName != 'top')
-  a(href='/edit/' + content.id, target='_blank') 編集
+if(userId != null && userId !='') 
+  a(href='/create', target='_blank') 作成  
+  if(displayName != 'top')
+    a(href='/edit/' + content.id, target='_blank') 編集

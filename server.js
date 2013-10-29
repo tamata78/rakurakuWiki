@@ -2,34 +2,17 @@
  * Module dependencies.
  */
 
-// DB設定
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/rakurakuwiki');
-
-// DBスキーマ設定
-var WikiContent = new mongoose.Schema({
-    id        : Number
-  , title     : String
-  , body      : String
-  , date      : Date
-});
-
-mongoose.model('WikiContent', WikiContent);
-module.exports = mongoose.model('WikiContent');
-
-// ユーザー情報取得 
-var model = require('./models/user.js')(mongoose);
-
-var express = require('express');
-
 // サーバー作成
+var express = require('express');
 var app = express.createServer();
+
+// モデル作成
+var models = module.exports = require('./model.js');
 
 // 環境設定
 require('./configure')(express, app);
 
 // Routes
-//require('./router')(app, model.User);
 require('./router')(app);
 
 app.listen(3000);

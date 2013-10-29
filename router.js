@@ -5,6 +5,7 @@
 module.exports = function(app){
   // handler
   var index_handler = require('./routes/index')
+  var user_handler = require('./routes/user')
   var create_handler = require('./routes/create')
   var wiki_handler = require('./routes/wiki')
   var edit_handler = require('./routes/edit')
@@ -20,8 +21,14 @@ module.exports = function(app){
   // ログイン 
   app.post('/login', index_handler.login);
 
+  // ログアウト 
+  app.get('/logout', index_handler.logout);
+
+  // 新規ユーザー登録画面を開く
+  app.get('/createUser', user_handler.createUser);
+  
   // 新規ユーザー登録
-  app.get('/createUser', index_handler.createUser);
+  app.post('/createUser/register', user_handler.register);
   
   // 記事の新規作成画面を開く
   app.get('/create', create_handler.index);

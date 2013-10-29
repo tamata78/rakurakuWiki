@@ -1,3 +1,7 @@
+/*
+ * チャット機能
+ */
+
 var messages = [];
 exports.index = function(req, res){
   var message = req.body.message;

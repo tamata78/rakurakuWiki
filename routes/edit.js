@@ -3,8 +3,10 @@
  * GET home page.
  */
 
+var models = module.parent.parent.exports;
+var WikiContent = models.WikiContent;
+
 //記事編集画面に遷移する
-var WikiContent = module.parent.parent.exports
 exports.index = function(req, res){
   WikiContent.findOne({id: req.params.articleId}, function (err, content) {
       var title = '選択されたページは存在しません。';
@@ -14,7 +16,6 @@ exports.index = function(req, res){
 
       res.render('edit', {
           content: content
-        , displayName: 'edit'
       });
   });
 }
@@ -30,7 +31,6 @@ exports.update = function(req, res){
       content.save(function (){
         res.render('wiki', {
             content: content
-          , displayName: 'wiki'
         });
       });
     }

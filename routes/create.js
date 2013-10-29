@@ -7,12 +7,12 @@
 exports.index = function(req, res){
    res.render('create', {
       title: '新規記事作成'
-    , displayName: 'create'
    })
 };
 
 //記事内容の登録
-var WikiContent = module.parent.parent.exports
+var models = module.parent.parent.exports;
+var WikiContent = models.WikiContent;
 
 exports.register = function(req, res){
   WikiContent.count({}, function (err, count) {
@@ -21,7 +21,6 @@ exports.register = function(req, res){
        , title:  req.param('title')
        , body: req.param('body')
        , date: new Date()
-       , displayName: 'register'
      };
      new WikiContent(content).save(
         function (){

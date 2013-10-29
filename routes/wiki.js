@@ -3,8 +3,9 @@
  * Module dependencies.
  */
 
+var models = module.parent.parent.exports;
+var WikiContent = models.WikiContent;
 
-var WikiContent = module.parent.parent.exports
 exports.index = function(req, res){
   WikiContent.findOne({id: req.params.articleId}, function (err, content) {
       var title = '選択されたページは存在しません。';
@@ -14,7 +15,7 @@ exports.index = function(req, res){
 
       res.render('wiki', {
           content: content
-        , displayName: 'wiki'
+        , userId: req.session.userId
       });
   });
 }

@@ -1,25 +1,26 @@
 .panel.panel-primary
   .panel-heading
     .panel-title      
-      if(login != 'true') 
+      if(userId == null || userId == '') 
         b Sign in
       else
         b Account
   div.text-center
-   if(login != 'true') 
-     form(mekthod='post', action='/login')
+   if(userId == null || userId == '') 
+     label=message
+     form(method='post', action='/login')
        br
-       | Email：
-       input(type='text', name='email', disabled='disabled', placeholder='hoge@aaa.com')
+       | ユーザーID:
+       input(type='text', name='userId')
        br
-       | Password：
-       input(type='password', name='password', disabled='disabled')
+       | パスワード：
+       input(type='password', name='password')
        br
        br
-       button.btn.btn-primary.disabled(type='submit') ログイン
+       button.btn.btn-primary(type='submit') ログイン
        br
-       //a(href="/createUser", target="_blank") 新規ユーザー登録 
+       a(href="/createUser", target="_blank") 新規ユーザー登録 
    else  
-     form(method='get', action='/loginout')
-       p tezuka
+     form(method='get', action='/logout')
+       p #{userId}
        button.btn(type='submit') ログアウト
