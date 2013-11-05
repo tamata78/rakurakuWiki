@@ -8,16 +8,16 @@
   div.text-center
    if(userId == null || userId == '') 
      label=message
-     form(method='post', action='/login', onSubmit='return checkForm()')
+     form(method='post', action='/login')
        table
          tr
            td
              | ユーザーID:
-             input(type='text', name='userId', id='userId')
+             input(type='text', name='userId')
          tr
            td
              | パスワード：
-             input(type='password', name='password', id='password')
+             input(type='password', name='password')
          tr
            td.text-center
              br  

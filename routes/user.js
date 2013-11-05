@@ -16,6 +16,10 @@ exports.register = function(req, res){
   id = req.param('userId');
   password = req.param('password');
   
+  if (id == '' || password == '') {
+    renderCreateUser(res, 'ユーザーID、またはパスワードが未入力です');
+    return;
+  }
   user.findOne({userId: id}, function (err, userInfo) {
     if (userInfo != null) {
       renderCreateUser(res, 'すでに存在するユーザーIDです'); 

@@ -1,16 +1,16 @@
 !!! 5
 h1=title
 br
-form(method='post', action='/createUser/register' )
+form(method='post', action='/createUser/register', onSubmit='return checkForm()')
   p=message 
   br
   label
     | ユーザーID:
-    input(type='text', name='userId')
+    input(type='text', name='userId', id='userId')
   br
   label 
     | パスワード:
-    input(type='password', name='password')
+    input(type='password', name='password', id='password')
   br
   br
   input(type='submit', value='登録')
